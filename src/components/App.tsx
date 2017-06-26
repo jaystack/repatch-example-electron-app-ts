@@ -27,9 +27,17 @@ class App extends React.PureComponent<{
   }
 }
 
-export default connect((state: State) => ({ counter: state.counter, name: state.name, direction: state.direction }), {
+const mapStateToProps = (state: State) => ({
+  counter: state.counter,
+  name: state.name,
+  direction: state.direction
+});
+
+const mapDispatchToProps = {
   increment,
   changeName,
   setToZero,
   turnDirection
-})(App);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
