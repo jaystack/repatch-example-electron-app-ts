@@ -8,9 +8,9 @@ import App from './components/App';
 const container = document.getElementById('app');
 
 const store = new Store<State>({
-	direction: 1,
-	counter: 0,
-	name: 'yee'
+  direction: 1,
+  counter: 0,
+  name: 'yee'
 });
 
 ReactDOM.render(<Provider store={store as any}><App /></Provider>, container);

@@ -1,5 +1,5 @@
 export interface State {
-	direction: number;
-	counter: number;
-	name: string;
+  direction: number;
+  counter: number;
+  name: string;
 }
