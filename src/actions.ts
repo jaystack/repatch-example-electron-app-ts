@@ -17,7 +17,7 @@ export function fetchTodos() {
   };
 }
 
-export function addTodo(todo: Todo) {
+export function addTodo() {
   return () => async (dispatch) => {
     await dispatch(invokeApi('POST', '/todos'));
     await dispatch(fetchTodos());
