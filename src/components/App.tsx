@@ -6,8 +6,8 @@ import Item from './Item';
 
 class App extends React.PureComponent<{
   todos: Todo[];
-  fetchTodos: Function;
-  addTodo: Function;
+  fetchTodos: typeof fetchTodos;
+  addTodo: typeof addTodo;
 }> {
   componentDidMount() {
     this.props.fetchTodos();
