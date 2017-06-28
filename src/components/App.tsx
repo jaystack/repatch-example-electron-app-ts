@@ -1,43 +1,52 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { State } from '../types';
-import { increment, changeName, setToZero, turnDirection } from '../actions';
+import { State, Todo } from '../types';
+import {
+  fetchTodos,
+  addTodo,
+  updateTodo,
+  checkTodo,
+  removeTodo
+} from '../actions';
 
 class App extends React.PureComponent<{
-  direction: number;
-  counter: number;
-  name: string;
-  increment: Function;
-  changeName: Function;
-  setToZero: Function;
-  turnDirection: Function;
+  todos: Todo[];
+  fetchTodos: Function;
+  addTodo: Function;
+  updateTodo: Function;
+  checkTodo: Function;
+  removeTodo: Function;
 }> {
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
+
   render() {
-    const { counter, name, increment, changeName, setToZero, turnDirection, direction } = this.props;
+    const { todos } = this.props;
     return (
       <div>
-        <div><button onClick={() => increment()} style={{ fontSize: '30px' }}>{counter} {name}</button></div>
-        <div>
-          <button onClick={() => setToZero()}>Zero</button>
-          <button onClick={() => turnDirection()}>Change direction: {direction}</button>
-          <input value={name} onChange={(evt) => changeName(evt.target.value)} />
-        </div>
+        <ul>
+          {todos.map(({ id, message, checked }) =>
+            <li key={id} onClick={() => this.props.checkTodo(id)}>
+              {message} {checked && '✓'}
+            </li>
+          )}
+        </ul>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: State) => ({
-  counter: state.counter,
-  name: state.name,
-  direction: state.direction
+  todos: state.todos
 });
 
 const mapDispatchToProps = {
-  increment,
-  changeName,
-  setToZero,
-  turnDirection
+  fetchTodos,
+  addTodo,
+  updateTodo,
+  checkTodo,
+  removeTodo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
