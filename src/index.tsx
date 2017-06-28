@@ -11,7 +11,8 @@ const container = document.getElementById('app');
 const store = new Store<State>({
   todos: [],
   isFetching: false,
-  error: null
+  error: null,
+  removingTodoId: null
 }).addMiddleware(thunk.withExtraArgument(api));
 
 ReactDOM.render(<Provider store={store as any}><App /></Provider>, container);
