@@ -19,7 +19,7 @@ const todos = [
 ] as Todo[];
 
 export default {
-  getTodos: async () => todos.slice(),
+  getTodos: async () => JSON.parse(JSON.stringify(todos)),
   addTodo: async (todo) => todos.push(todo),
   updateTodo: async (id, message) => {
     const todo = todos.find((todo) => todo.id === id);
