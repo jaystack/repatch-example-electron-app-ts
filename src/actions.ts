@@ -1,61 +1,50 @@
 import { Todo } from './types';
-import { Api } from './api';
 
 function reject(error) {
   return (state) => ({ ...state, error });
 }
 
-export function fetchTodos() {
-  return () => async (dispatch, getState, api: Api) => {
+function invokeApi(method: string, url: string, query?: object, body?: object) {
+  return () => async (dispatch, getState, api) => {
     try {
-      const todos = await api.getTodos();
-      dispatch((state) => ({ ...state, todos }));
+      return await api[url][method.toLowerCase()](query, body);
     } catch (error) {
       dispatch(reject(error.message));
     }
+  };
+}
+
+export function fetchTodos() {
+  return () => async (dispatch) => {
+    const todos = await dispatch(invokeApi('GET', '/todos'));
+    dispatch((state) => ({ ...state, todos }));
   };
 }
 
 export function addTodo(todo: Todo) {
-  return () => async (dispatch, getState, api: Api) => {
-    try {
-      await api.addTodo();
-      await dispatch(fetchTodos());
-    } catch (error) {
-      dispatch(reject(error.message));
-    }
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('POST', '/todos'));
+    await dispatch(fetchTodos());
   };
 }
 
 export function updateTodo(id: string, message: string) {
-  return () => async (dispatch, getState, api: Api) => {
-    try {
-      await api.updateTodo(id, message);
-      await dispatch(fetchTodos());
-    } catch (error) {
-      dispatch(reject(error.message));
-    }
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('PUT', '/todos', { id }, { message }));
+    await dispatch(fetchTodos());
   };
 }
 
 export function checkTodo(id: string) {
-  return () => async (dispatch, getState, api: Api) => {
-    try {
-      await api.checkTodo(id);
-      await dispatch(fetchTodos());
-    } catch (error) {
-      dispatch(reject(error.message));
-    }
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('PATCH', '/todos', { id }));
+    await dispatch(fetchTodos());
   };
 }
 
 export function removeTodo(id: string) {
-  return () => async (dispatch, getState, api: Api) => {
-    try {
-      await api.removeTodo(id);
-      await dispatch(fetchTodos());
-    } catch (error) {
-      dispatch(reject(error.message));
-    }
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('DELETE', '/todos', { id }));
+    await dispatch(fetchTodos());
   };
 }
