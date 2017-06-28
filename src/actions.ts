@@ -1,11 +1,12 @@
 import { Todo } from './types';
+import { Api } from './api';
 
 function reject(error) {
-  (state) => ({ ...state, error });
+  return (state) => ({ ...state, error });
 }
 
 export function fetchTodos() {
-  return () => async (dispatch, getState, api) => {
+  return () => async (dispatch, getState, api: Api) => {
     try {
       const todos = await api.getTodos();
       dispatch((state) => ({ ...state, todos }));
@@ -16,9 +17,9 @@ export function fetchTodos() {
 }
 
 export function addTodo(todo: Todo) {
-  return () => async (dispatch, getState, api) => {
+  return () => async (dispatch, getState, api: Api) => {
     try {
-      await api.addTodo(todo);
+      await api.addTodo();
       await dispatch(fetchTodos());
     } catch (error) {
       dispatch(reject(error.message));
@@ -26,10 +27,10 @@ export function addTodo(todo: Todo) {
   };
 }
 
-export function updateTodo(id, delta) {
-  return () => async (dispatch, getState, api) => {
+export function updateTodo(id: string, message: string) {
+  return () => async (dispatch, getState, api: Api) => {
     try {
-      await api.updateTodo(id, delta);
+      await api.updateTodo(id, message);
       await dispatch(fetchTodos());
     } catch (error) {
       dispatch(reject(error.message));
@@ -37,8 +38,8 @@ export function updateTodo(id, delta) {
   };
 }
 
-export function checkTodo(id) {
-  return () => async (dispatch, getState, api) => {
+export function checkTodo(id: string) {
+  return () => async (dispatch, getState, api: Api) => {
     try {
       await api.checkTodo(id);
       await dispatch(fetchTodos());
@@ -48,8 +49,8 @@ export function checkTodo(id) {
   };
 }
 
-export function removeTodo(id) {
-  return () => async (dispatch, getState, api) => {
+export function removeTodo(id: string) {
+  return () => async (dispatch, getState, api: Api) => {
     try {
       await api.removeTodo(id);
       await dispatch(fetchTodos());
