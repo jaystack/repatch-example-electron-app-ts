@@ -1,7 +1,7 @@
 {
-  "name": "nazgul",
-  "version": "0.0.0",
-  "description": "",
+  "name": "repatch-example-electron-app",
+  "version": "0.0.1",
+  "description": "Todo electron app to representing repatch",
   "main": "lib/main",
   "scripts": {
     "tsc": "tsc -p src --outDir lib",
@@ -11,8 +11,27 @@
     "start": "electron lib/main",
     "start-prod": "NODE_ENV=production npm start"
   },
-  "author": "",
-  "license": "ISC",
+  "authors": [
+    "Péter Hauszknecht <peter.hauszknecht@jaystack.com> (https://github.com/jayhasyee)"
+  ],
+  "keywords": [
+    "dispatch",
+    "redux",
+    "reducer",
+    "state",
+    "predictable",
+    "functional",
+    "immutable",
+    "flux"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaystack/repatch-example-electron-app.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaystack/repatch-example-electron-app/issues"
+  },
   "dependencies": {
     "electron": "^1.7.3",
     "react": "^15.6.1",
