@@ -1,43 +1,36 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { State } from '../types';
-import { increment, changeName, setToZero, turnDirection } from '../actions';
+import { State, Todo } from '../types';
+import { fetchTodos, addTodo } from '../actions';
+import Item from './Item';
 
 class App extends React.PureComponent<{
-  direction: number;
-  counter: number;
-  name: string;
-  increment: Function;
-  changeName: Function;
-  setToZero: Function;
-  turnDirection: Function;
+  todos: Todo[];
+  fetchTodos: Function;
+  addTodo: Function;
 }> {
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
+
   render() {
-    const { counter, name, increment, changeName, setToZero, turnDirection, direction } = this.props;
+    const { todos, addTodo } = this.props;
     return (
-      <div>
-        <div><button onClick={() => increment()} style={{ fontSize: '30px' }}>{counter} {name}</button></div>
-        <div>
-          <button onClick={() => setToZero()}>Zero</button>
-          <button onClick={() => turnDirection()}>Change direction: {direction}</button>
-          <input value={name} onChange={(evt) => changeName(evt.target.value)} />
-        </div>
+      <div className="app">
+        {todos.map((todo, index) => <Item key={todo.id} todoIndex={index} />)}
+        <button onClick={() => addTodo()}>+</button>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: State) => ({
-  counter: state.counter,
-  name: state.name,
-  direction: state.direction
+  todos: state.todos
 });
 
 const mapDispatchToProps = {
-  increment,
-  changeName,
-  setToZero,
-  turnDirection
+  fetchTodos,
+  addTodo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

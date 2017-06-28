@@ -1,25 +1,50 @@
-import { State } from './types';
+import { Todo } from './types';
 
-export const increment = () => (state: State): State => ({
-  ...state,
-  counter: state.counter + state.direction
-});
+function reject(error) {
+  return (state) => ({ ...state, error });
+}
 
-export const changeName = (name: string) => (state: State): State => ({
-  ...state,
-  name
-});
+function invokeApi(method: string, url: string, query?: object, body?: object) {
+  return () => async (dispatch, getState, api) => {
+    try {
+      return await api[url][method.toLowerCase()](query, body);
+    } catch (error) {
+      dispatch(reject(error.message));
+    }
+  };
+}
 
-export const setToZero = () => (state: State): State => ({
-  ...state,
-  counter: 0
-});
+export function fetchTodos() {
+  return () => async (dispatch) => {
+    const todos = await dispatch(invokeApi('GET', '/todos'));
+    dispatch((state) => ({ ...state, todos }));
+  };
+}
 
-export const turnDirection = () => (state: State): State => ({
-  ...state,
-  direction: -1 * state.direction
-});
+export function addTodo(todo: Todo) {
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('POST', '/todos'));
+    await dispatch(fetchTodos());
+  };
+}
 
-export const someAsyncAction = (a: number) => (state) => async (dispatch, getState) => {
-  // ...
-};
+export function updateTodo(id: string, message: string) {
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('PUT', '/todos', { id }, { message }));
+    await dispatch(fetchTodos());
+  };
+}
+
+export function checkTodo(id: string) {
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('PATCH', '/todos', { id }));
+    await dispatch(fetchTodos());
+  };
+}
+
+export function removeTodo(id: string) {
+  return () => async (dispatch) => {
+    await dispatch(invokeApi('DELETE', '/todos', { id }));
+    await dispatch(fetchTodos());
+  };
+}

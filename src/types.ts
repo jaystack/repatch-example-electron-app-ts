@@ -1,5 +1,11 @@
+export interface Todo {
+  id: string;
+  message: string;
+  checked: boolean;
+}
+
 export interface State {
-  direction: number;
-  counter: number;
-  name: string;
+  todos: Todo[];
+  isFetching: boolean;
+  error: string | null;
 }
