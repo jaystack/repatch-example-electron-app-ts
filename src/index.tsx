@@ -11,6 +11,6 @@ const store = new Store<State>({
   direction: 1,
   counter: 0,
   name: 'yee'
-}).addMiddleware(thunk());
+}).addMiddleware(thunk);
 
 ReactDOM.render(<Provider store={store as any}><App /></Provider>, container);
