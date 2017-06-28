@@ -1,15 +1,11 @@
 import { Todo } from './types';
 
-function reject(error) {
-  return (state) => ({ ...state, error });
-}
-
 function invokeApi(method: string, url: string, query?: object, body?: object) {
   return () => async (dispatch, getState, api) => {
     try {
       return await api[url][method.toLowerCase()](query, body);
     } catch (error) {
-      dispatch(reject(error.message));
+      dispatch((state) => ({ ...state, error: error.message }));
     }
   };
 }
