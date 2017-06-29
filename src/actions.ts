@@ -1,4 +1,4 @@
-import { TodoReducer as Reducer, TodoThunk as Thunk } from './types';
+import { TodoReducer as Reducer, TodoThunk as Thunk, Todo } from './types';
 
 function call(
   method: string,
@@ -18,7 +18,7 @@ function call(
 export function fetchTodos(): Thunk {
   return () => async (dispatch) => {
     dispatch(cancelRemovingTodo());
-    const todos = await dispatch(call('GET', '/todos'));
+    const todos: Todo[] = await dispatch(call('GET', '/todos'));
     dispatch((state) => ({ ...state, todos }));
   };
 }
