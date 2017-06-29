@@ -15,4 +15,4 @@ export interface State {
 }
 
 export type TodoReducer = Reducer<State>;
-export type TodoThunk = Thunk<State, typeof api>;
+export type TodoThunk<T> = Thunk<State, typeof api, T>;

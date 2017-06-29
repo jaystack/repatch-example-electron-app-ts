@@ -20,7 +20,7 @@ const todos = [
 
 export default {
   '/todos': {
-    get: async () => JSON.parse(JSON.stringify(todos)),
+    get: async (): Promise<Todo[]> => JSON.parse(JSON.stringify(todos)),
     post: async () => {
       todos.push({ id: Math.random().toString(), message: '', checked: false });
     },
