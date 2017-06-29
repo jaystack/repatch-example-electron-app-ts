@@ -1,6 +1,11 @@
-import { State, Todo } from './types';
+import { TodoReducer as Reducer, TodoThunk as Thunk } from './types';
 
-function call(method: string, path: string, query?: object, body?: object) {
+function call(
+  method: string,
+  path: string,
+  query?: object,
+  body?: object
+): Thunk {
   return () => async (dispatch, getState, api) => {
     try {
       return await api[path][method.toLowerCase()](query, body);
@@ -10,7 +15,7 @@ function call(method: string, path: string, query?: object, body?: object) {
   };
 }
 
-export function fetchTodos() {
+export function fetchTodos(): Thunk {
   return () => async (dispatch) => {
     dispatch(cancelRemovingTodo());
     const todos = await dispatch(call('GET', '/todos'));
@@ -18,7 +23,7 @@ export function fetchTodos() {
   };
 }
 
-export function addTodo() {
+export function addTodo(): Thunk {
   return () => async (dispatch) => {
     dispatch(cancelRemovingTodo());
     await dispatch(call('POST', '/todos'));
@@ -26,7 +31,7 @@ export function addTodo() {
   };
 }
 
-export function updateTodo(id: string, message: string) {
+export function updateTodo(id: string, message: string): Thunk {
   return () => async (dispatch) => {
     dispatch(cancelRemovingTodo());
     await dispatch(call('PUT', '/todos', { id }, { message }));
@@ -34,7 +39,7 @@ export function updateTodo(id: string, message: string) {
   };
 }
 
-export function checkTodo(id: string) {
+export function checkTodo(id: string): Thunk {
   return () => async (dispatch) => {
     dispatch(cancelRemovingTodo());
     await dispatch(call('PATCH', '/todos', { id }));
@@ -42,15 +47,15 @@ export function checkTodo(id: string) {
   };
 }
 
-export function removeTodo(removingTodoId: string) {
-  return (state: State): State => ({ ...state, removingTodoId });
+export function removeTodo(removingTodoId: string): Reducer {
+  return (state) => ({ ...state, removingTodoId });
 }
 
-export function cancelRemovingTodo() {
-  return (state: State): State => ({ ...state, removingTodoId: null });
+export function cancelRemovingTodo(): Reducer {
+  return (state) => ({ ...state, removingTodoId: null });
 }
 
-export function confirmRemovingTodo() {
+export function confirmRemovingTodo(): Thunk {
   return () => async (dispatch, getState) => {
     const id = getState().removingTodoId;
     await dispatch(call('DELETE', '/todos', { id }));

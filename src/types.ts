@@ -1,3 +1,6 @@
+import { Reducer, Thunk } from 'repatch';
+import api from './api';
+
 export interface Todo {
   id: string;
   message: string;
@@ -10,3 +13,6 @@ export interface State {
   error: string | null;
   removingTodoId: string | null;
 }
+
+export type TodoReducer = Reducer<State>;
+export type TodoThunk = Thunk<State, typeof api>;
