@@ -64,9 +64,3 @@ export function confirmRemovingTodo(): Thunk<Promise<void>> {
     await dispatch(fetchTodos())
   }
 }
-
-const a1 = { hello: 1, hi: 2 }
-const a2 = {
-  hello: 1,
-  hi: 2
-}
