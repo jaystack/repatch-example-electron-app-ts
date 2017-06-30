@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { State, Todo } from '../types';
+import * as React from 'react'
+import { connect } from 'react-redux'
+import { State, Todo } from '../types'
 import {
   checkTodo,
   updateTodo,
   removeTodo,
   cancelRemovingTodo,
   confirmRemovingTodo
-} from '../actions';
+} from '../actions'
 
 class Item extends React.PureComponent<{
-  todoIndex: number;
-  todo: Todo;
-  isRemovingTodo: boolean;
-  checkTodo: typeof checkTodo;
-  updateTodo: typeof updateTodo;
-  removeTodo: typeof removeTodo;
-  cancelRemovingTodo: typeof cancelRemovingTodo;
-  confirmRemovingTodo: typeof confirmRemovingTodo;
+  todoIndex: number
+  todo: Todo
+  isRemovingTodo: boolean
+  checkTodo: typeof checkTodo
+  updateTodo: typeof updateTodo
+  removeTodo: typeof removeTodo
+  cancelRemovingTodo: typeof cancelRemovingTodo
+  confirmRemovingTodo: typeof confirmRemovingTodo
 }> {
   render() {
     const {
@@ -28,7 +28,7 @@ class Item extends React.PureComponent<{
       removeTodo,
       cancelRemovingTodo,
       confirmRemovingTodo
-    } = this.props;
+    } = this.props
     return (
       <div className="item">
         <input
@@ -39,7 +39,7 @@ class Item extends React.PureComponent<{
         <input
           type="text"
           value={message}
-          onChange={(evt) => updateTodo(id, evt.target.value)}
+          onChange={evt => updateTodo(id, evt.target.value)}
         />
         {isRemovingTodo
           ? <span>
@@ -48,14 +48,14 @@ class Item extends React.PureComponent<{
             </span>
           : <button onClick={() => removeTodo(id)}>X</button>}
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state: State, { todoIndex }) => ({
   todo: state.todos[todoIndex],
   isRemovingTodo: state.removingTodoId === state.todos[todoIndex].id
-});
+})
 
 const mapDispatchToProps = {
   checkTodo,
@@ -63,6 +63,6 @@ const mapDispatchToProps = {
   removeTodo,
   cancelRemovingTodo,
   confirmRemovingTodo
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapStateToProps, mapDispatchToProps)(Item)

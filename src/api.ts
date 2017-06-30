@@ -1,4 +1,4 @@
-import { Todo } from './types';
+import { Todo } from './types'
 
 const todos = [
   {
@@ -16,25 +16,25 @@ const todos = [
     message: 'haircut',
     checked: true
   }
-] as Todo[];
+] as Todo[]
 
 export default {
   '/todos': {
     get: async (): Promise<Todo[]> => JSON.parse(JSON.stringify(todos)),
     post: async () => {
-      todos.push({ id: Math.random().toString(), message: '', checked: false });
+      todos.push({ id: Math.random().toString(), message: '', checked: false })
     },
     put: async ({ id }, { message }) => {
-      const todo = todos.find((todo) => todo.id === id);
-      todo.message = message;
+      const todo = todos.find(todo => todo.id === id)
+      todo.message = message
     },
     patch: async ({ id }) => {
-      const todo = todos.find((todo) => todo.id === id);
-      todo.checked = !todo.checked;
+      const todo = todos.find(todo => todo.id === id)
+      todo.checked = !todo.checked
     },
     delete: async ({ id }) => {
-      const todoIndex = todos.findIndex((todo) => todo.id === id);
-      todos.splice(todoIndex, 1);
+      const todoIndex = todos.findIndex(todo => todo.id === id)
+      todos.splice(todoIndex, 1)
     }
   }
-};
+}
