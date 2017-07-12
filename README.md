@@ -1,4 +1,4 @@
-# repatch-example-electron-app
+# repatch-example-electron-app-ts
 
 ## Running the example
 
