@@ -1,5 +1,5 @@
 {
-  "name": "repatch-example-electron-app",
+  "name": "repatch-example-electron-app-ts",
   "version": "0.0.1",
   "description": "Todo electron app to representing repatch",
   "main": "lib/main",
@@ -26,11 +26,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jaystack/repatch-example-electron-app.git"
+    "url": "https://github.com/jaystack/repatch-example-electron-app-ts.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jaystack/repatch-example-electron-app/issues"
+    "url": "https://github.com/jaystack/repatch-example-electron-app-ts/issues"
   },
   "dependencies": {
     "electron": "^1.7.4",
