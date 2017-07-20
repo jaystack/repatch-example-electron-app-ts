@@ -7,6 +7,7 @@ function call(
   body?: object
 ): Thunk<Promise<any>> {
   return () => async (dispatch, getState, api) => {
+    dispatch(state => ({ ...state, isFetching: true }))
     try {
       return await api[path][method.toLowerCase()](query, body)
     } catch (error) {

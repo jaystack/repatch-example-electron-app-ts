@@ -43,8 +43,8 @@ class Item extends React.PureComponent<{
         />
         {isRemovingTodo
           ? <span>
-              <button onClick={() => confirmRemovingTodo()}>YES</button>
-              <button onClick={() => cancelRemovingTodo()}>NO</button>
+              <button onClick={() => confirmRemovingTodo()}>REMOVE</button>
+              <button onClick={() => cancelRemovingTodo()}>CANCEL</button>
             </span>
           : <button onClick={() => removeTodo(id)}>X</button>}
       </div>
