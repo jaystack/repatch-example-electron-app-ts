@@ -33,18 +33,18 @@
     "url": "https://github.com/jaystack/repatch-example-electron-app-ts/issues"
   },
   "dependencies": {
-    "electron": "^1.7.4",
+    "electron": "^1.7.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-redux": "^5.0.5",
-    "repatch": "^1.2.4"
+    "react-redux": "^5.0.6",
+    "repatch": "^1.2.5"
   },
   "devDependencies": {
     "@types/electron": "^1.6.10",
-    "@types/node": "^8.0.6",
-    "@types/react": "^15.0.33",
-    "@types/react-dom": "^15.5.1",
-    "@types/react-redux": "^4.4.45",
-    "typescript": "^2.4.1"
+    "@types/node": "^8.0.24",
+    "@types/react": "^15.6.1",
+    "@types/react-dom": "^15.5.4",
+    "@types/react-redux": "^4.4.47",
+    "typescript": "^2.5.1"
   }
 }
